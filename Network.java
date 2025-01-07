@@ -148,36 +148,33 @@ public class Network {
      */
     public String toString() {
         StringBuilder sb = new StringBuilder("Network:");
-        // If no users, we return "Network:" only (no newline)
+        // If no users, just return "Network:"
         if (userCount == 0) {
             return sb.toString();
         }
-        
-        // Otherwise, we start listing users on the next line
-        sb.append("\n");
-        
-        for (int i = 0; i < userCount; i++) {
-            // Print "UserName -> "
-            sb.append(users[i].getName()).append(" -> ");
     
-            // Add any followees, separated by spaces
+        sb.append("\n");
+        for (int i = 0; i < userCount; i++) {
+            // Use " ->" (no trailing space here)
+            sb.append(users[i].getName()).append(" ->");
+    
             String[] f = users[i].getfFollows();
             int fc = users[i].getfCount();
+            // Append followees, each prefixed by a space
             for (int j = 0; j < fc; j++) {
-                sb.append(f[j]);
-                if (j < fc - 1) {
-                    sb.append(" ");
-                }
+                sb.append(" ").append(f[j]);
             }
-            // The autograder expects a trailing space after the last followee (even if none).
+    
+            // Add exactly ONE trailing space
             sb.append(" ");
-            
-            // Only add a newline if this is NOT the last user
+    
+            // Newline only if this is not the last user
             if (i < userCount - 1) {
                 sb.append("\n");
             }
         }
         return sb.toString();
     }
+    
     
 }
